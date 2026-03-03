@@ -93,30 +93,27 @@ public class Game {
 	}
 	
 	private void turnoComputadora() {
-		System.out.println("\n--- Turno computadora ---");
+	    System.out.println("\n--- Turno computadora ---");
 
-		for (int i = 0; i < computadora.size(); i++) {
-			
-			Card carta = computadora.jugarCarta(i);
-			
-			if (carta != null && carta.esJugableSobre(cartaMesa)) {
-				cartaMesa = carta;
-				System.out.println("La computadora jugó: " + cartaMesa);
-				return;
-			} else {
-				// si no sirve, la regresamos
-				computadora.agregarCarta(carta);
-			}
-		}
+	    System.out.println("Cartas de la computadora:");
+	    computadora.mostrarMano();  // 👈 aquí se muestran
 
-		// Si no puede jugar, roba
-		Card nueva = deck.robarCarta();
+	    for (int i = 0; i < computadora.size(); i++) {
+	        Card carta = computadora.jugarCarta(i);
 
-		if (nueva != null) {
-		    computadora.agregarCarta(nueva);
-		    System.out.println("La computadora roba una carta.");
-		} else {
-		    System.out.println("No hay más cartas en el mazo.");
-		}
+	        if (carta != null && carta.esJugableSobre(cartaMesa)) {
+	            cartaMesa = carta;
+	            System.out.println("La computadora jugó: " + cartaMesa);
+	            return;
+	        } else {
+	            computadora.agregarCarta(carta);
+	        }
+	    }
+
+	    Card nueva = deck.robarCarta();
+	    if (nueva != null) {
+	        computadora.agregarCarta(nueva);
+	        System.out.println("La computadora roba una carta.");
+	    }
 	}
 }
